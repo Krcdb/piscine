@@ -6,36 +6,30 @@
 /*   By: mmartine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 02:23:34 by mmartine          #+#    #+#             */
-/*   Updated: 2017/07/18 02:40:43 by mmartine         ###   ########.fr       */
+/*   Updated: 2017/07/19 16:30:43 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-char	**ft_split_whitespaces(char *str);
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+void	ft_putchar(char c);
 
 void	ft_print_words_tables(char **tab)
 {
 	int i;
+	int j;
 
 	i = 0;
-	while (*tab)
+	j = 0;
+	while (tab[i] != 0)
 	{
-		while (**tab)
+		while (tab[i][j] != '\0')
 		{
-			ft_putchar(**tab++);
-			i++;
+			ft_putchar(tab[i][j]);
+			j++;
 		}
-		**tab -= i;
-		i = 0;
-		(*tab)++;
+		ft_putchar('\n');
+		j = 0;
+		i++;
 	}
 }
-

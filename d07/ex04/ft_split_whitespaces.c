@@ -6,7 +6,7 @@
 /*   By: mmartine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/17 18:41:04 by mmartine          #+#    #+#             */
-/*   Updated: 2017/07/18 02:52:43 by mmartine         ###   ########.fr       */
+/*   Updated: 2017/07/19 16:32:19 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,23 @@ char	**ft_split_whitespaces(char *str)
 	char	**tab;
 
 	i = 0;
-	if (!(tab = (char**)malloc(sizeof(*tab) * (ft_countword(str)))))
-		while (*str)
+	if (!(tab = (char**)malloc(sizeof(*tab) * (ft_countword(str) + 1))))
+		return (NULL);
+	while (*str)
+	{
+		while ((*str == ' ' || *str == '\t' || *str == '\n') && *str)
+			str++;
+		if (*str >= 33 && *str <= 126 && *str)
 		{
-			while ((*str == ' ' || *str == '\t' || *str == '\n') && *str)
-				str++;
-			if (*str >= 33 && *str <= 126 && *str)
-			{
-				size = ft_wordlength(str);
-				if (!(tab[i] = (char*)malloc(sizeof(**tab) * (size))))
-					while (*str >= 33 && *str <= 126 && *str)
-						*tab[i]++ = *str++;
-				*tab[i] = '\0';
-				tab[i++] -= size;
-			}
+			size = ft_wordlength(str);
+			if (!(tab[i] = (char*)malloc(sizeof(**tab) * (size + 1))))
+				return (NULL);
+			while (*str >= 33 && *str <= 126 && *str)
+				*tab[i]++ = *str++;
+			*tab[i] = '\0';
+			tab[i++] -= size;
 		}
-	if (!(tab[i] = (char*)malloc(sizeof(**tab) * (2))))
-		*tab[i]++ = 0;
-	*tab[i] = '\0';
+	}
+	tab[i] = 0;
 	return (tab);
 }

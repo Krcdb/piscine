@@ -6,7 +6,7 @@
 /*   By: mmartine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 03:20:45 by mmartine          #+#    #+#             */
-/*   Updated: 2017/07/18 21:38:48 by mmartine         ###   ########.fr       */
+/*   Updated: 2017/07/19 17:43:52 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**ft_split_whitespaces(char *str)
 	char	**tab;
 
 	i = 0;
-	if (!(tab = (char**)malloc(sizeof(*tab) * (ft_countword(str)))))
+	if (!(tab = (char**)malloc(sizeof(*tab) * (ft_countword(str) + 1))))
 		return (NULL);
 	while (*str)
 	{
@@ -78,10 +78,8 @@ char	**ft_split_whitespaces(char *str)
 			*tab[i] = '\0';
 			tab[i++] -= size;
 		}
-	}
-	if(!(tab[i] = (char*)malloc(sizeof(**tab) * (1))))
-		return (NULL);
-	*tab[i] = '\0';
+	}			
+	tab[i] = 0;
 	return (tab);
 }
 
@@ -92,7 +90,7 @@ void	ft_print_words_tables(char **tab)
 
 	i = 0;
 	j = 0;
-	while (tab[i][j] != '\0')
+	while (tab[i] != 0)
 	{
 		while (tab[i][j] != '\0')
 		{
@@ -108,13 +106,14 @@ int main(int argc, char ** argv)
 {
 	char **tab;
 	(void)argc;
-	tab = ft_split_whitespaces(argv[1]);
-	//	ft_print_words_tables(tab);
-	while(**tab != 0)
+	(void)argv;
+	tab = ft_split_whitespaces("je suis un mo[t");
+	ft_print_words_tables(tab);
+/*	while(**tab != 0)
 	{
 		printf("%s\n", *tab);
 		tab++;
-	}
+	}*/
 	return (0);
 
 }
